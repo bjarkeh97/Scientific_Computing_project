@@ -11,7 +11,7 @@ from scipy import sparse
 class SparseMatrixDirectSolver:
     
     #Method of LU decomposition. Returns matrix with L in lower triangular part and U in upper.
-    def LUfunc(M):
+    def LUfunc(self,M):
         Afloat = M.astype(float) #To make sure we have float division
 #        A = sparse.csr_matrix(Afloat) #make sparse
         A = Afloat
@@ -27,13 +27,13 @@ class SparseMatrixDirectSolver:
         return A
     
     
-    def LUfunc2(A):  #Returns LUfunc matrix result as L and U matrices
+    def LUfunc2(self,A):  #Returns LUfunc matrix result as L and U matrices
         L = np.tril(A,-1)+np.eye(np.shape(A)[0])
         U = np.triu(A)
         return L , U
 
     #Forward     Works for a LU decomposed matrix from LUfunc      L is NxN matrix, f is N vector
-    def Forsub(A,f):
+    def Forsub(self,A,f):
         N = np.shape(A)[0]
         y = np.array([f[0]]) #first element is always just f[0] due to lower tridiagonal
         L = A.astype(float)
@@ -44,7 +44,7 @@ class SparseMatrixDirectSolver:
         return y
     
     #backward    Use y from Forsub
-    def Backsub(A,y):
+    def Backsub(self,A,y):
         N = np.shape(A)[0]
         U = A.astype(float)
         u = np.zeros(N)
@@ -54,9 +54,9 @@ class SparseMatrixDirectSolver:
         return u
     
     def DirSolver(A,f):
-        LU = LUfunc(A)
-        y = Forsub(LU,f)
-        u = Backsub(LU,y)
+        LU = self.LUfunc(A)
+        y = self.Forsub(LU,f)
+        u = self.Backsub(LU,y)
         return u
 
 
