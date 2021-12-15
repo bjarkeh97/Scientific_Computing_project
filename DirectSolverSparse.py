@@ -53,7 +53,7 @@ class SparseMatrixDirectSolver:
             u[i] = ( y[i]-np.dot(U[i,i:N],u[i:N]) )/U[i,i]
         return u
     
-    def DirSolver(A,f):
+    def DirSolver(self,A,f):
         LU = self.LUfunc(A)
         y = self.Forsub(LU,f)
         u = self.Backsub(LU,y)
