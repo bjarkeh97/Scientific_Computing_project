@@ -139,8 +139,6 @@ def Backsub(A,y):
     return u
 
 
-
-
 #Final direct solver
 
 def DirSolver(A,f):
